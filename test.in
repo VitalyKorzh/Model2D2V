@@ -1,0 +1,108 @@
+precision=3
+normaN=1e13
+normaE=1000.
+normaB=3600.
+
+time-merge=1e-12
+time start set 0
+time end set 1
+time t even start end 20
+
+ion
+    Z=1
+    M=1
+
+mesh start
+    epsilon=1e-4
+    refB=1.
+    E-axis
+        sequence
+            Emin 0.
+            Emax 5
+            split 120
+            ratio 1.
+    E-axis end
+
+    Mu-axis
+        quad
+            bottom
+                band
+                    index 11
+                min 0
+                max 5
+            top
+                band
+                    index 119
+                min 0
+                max 5
+        split=120
+        ratio=1
+
+    Mu-axis end
+
+    Mu-axis
+        quad
+            bottom
+                band
+                    index 0
+                min 0
+                max 5
+            top
+                band
+                    index 10
+                min 0
+                max 5
+        split=120
+        ratio=2
+
+    Mu-axis end
+
+    z-axis
+        n 1
+            -200
+            200
+    r-axis
+        n 1
+            0
+            15
+    Bvac
+        1
+
+mesh end
+
+initial-plasma
+    component
+        ion 0
+        r
+            value 0  
+        T 0.5
+        n 1
+initial-plasma end
+
+
+source
+    K-maxwell
+        ion 0
+        z
+            value 0
+        r
+            value 0
+        T=2
+        I lin 3
+            start 1
+            t6 0.5
+            t7 0
+
+f-step
+    threads=1
+    zero-epsilon=1e-12
+    epsilon=1e-8
+    ILUT
+        p 5
+        tol 1e-6
+        coeff 1
+        shift 0
+        fast
+    ILUT end
+
+f-step end
