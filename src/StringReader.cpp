@@ -72,10 +72,10 @@ bool StringReader::getDoubleParameter(const std::string &line, std::string param
     if (findParameterInLine(line, parameterName)) 
         try {
             val = std::stod(line.substr(line.find(parameterName) + parameterName.size()));
-        }catch (const std::invalid_argument &) { 
-            val = 0.;                                     
-        } catch (const std::out_of_range &) {   
-            val = 0.;                                       
+        }catch (const std::invalid_argument & e) {   
+            return false;                                 
+        } catch (const std::out_of_range & e) {      
+            return false;                                   
         }        
     else
         return false;
@@ -86,11 +86,11 @@ bool StringReader::getIntParameter(const std::string &line, std::string paramete
 {
     if (findParameterInLine(line, parameterName))
         try {
-        val = std::stoi(line.substr(line.find(parameterName) + parameterName.size()));
-        }catch (const std::invalid_argument &) { 
-            val = 0;                                     
-        } catch (const std::out_of_range &) {   
-            val = 0;                                       
+            val = std::stoi(line.substr(line.find(parameterName) + parameterName.size()));
+        }catch (const std::invalid_argument & e) { 
+            return false;                                
+        } catch (const std::out_of_range & e) {   
+            return false;                                       
         }     
     else
         return false;
@@ -102,10 +102,10 @@ bool StringReader::getUnsignedLLIntParameter(const std::string &line, std::strin
     if (findParameterInLine(line, parameterName)) 
         try {
             val = std::stoull(line.substr(line.find(parameterName) + parameterName.size()));
-        }catch (const std::invalid_argument &) { 
-            val = 0;                                     
-        } catch (const std::out_of_range &) {   
-            val = 0;                                       
+        }catch (const std::invalid_argument & e) { 
+            return false;                                    
+        } catch (const std::out_of_range & e) {    
+            return false;                                  
         }     
     else
         return false;
@@ -120,10 +120,10 @@ bool StringReader::getUnsignedParameter(const std::string &line, std::string par
             unsigned long int valL = 0;
             valL = std::stoul(line.substr(line.find(parameterName) + parameterName.size()));
             val = static_cast <unsigned> (valL);
-        }catch (const std::invalid_argument &) { 
-            val = 0;                                     
-        } catch (const std::out_of_range &) {   
-            val = 0;                                       
+        }catch (const std::invalid_argument & e) {    
+            return false;                                
+        } catch (const std::out_of_range & e) {   
+            return false;                                  
         }     
     else
         return false;
@@ -137,10 +137,10 @@ bool StringReader::getLineParameter(const std::string &line, std::string paramet
         try {
             val = "";
             val = line.substr(line.find(parameterName) + parameterName.size());
-        } catch (const std::invalid_argument &) {
-            val = "";
-        } catch (const std::out_of_range &) {
-            val = "";
+        } catch (const std::invalid_argument & e) {
+            return false;
+        } catch (const std::out_of_range & e) {
+            return false;
         }
     }
     else

@@ -262,8 +262,9 @@ Solver::Solver(std::istream &in, std::ostream &os) : os(os), reader(in), ions(re
     //phireal = phi/|e|*normaeEnergy*EV_TO_ERG
     //freal = normaN*f*(MP/normaE/EV_TO_ERG)^(3/2)
 
-
-    Bmin = *std::min_element(Bvac.begin(), Bvac.end());
+    Bmin = 1.;
+    if (!Bvac.empty())
+        Bmin = *std::min_element(Bvac.begin(), Bvac.end());
 
     for (uint iz = 0; iz < nz; iz++)
     {
