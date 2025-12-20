@@ -911,8 +911,8 @@ bool InputReader::readMesh(std::istream &in)
                     return false;
                 }
                 rArray.clear();
-                rArray.reserve(nz+1);
-                for (uint i = 0; i < nz+1; i++) 
+                rArray.reserve(nr+1);
+                for (uint i = 0; i < nr+1; i++) 
                 {
                     double val;
                     in >> val;
