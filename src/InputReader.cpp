@@ -951,13 +951,13 @@ bool InputReader::readMesh(std::istream &in)
 
     if (!findBand) 
     {
-        errorMessage("mesh не указаны y-axis");
+        errorMessage("mesh не указаны E-axis");
         return false;   
     }
 
     if (!findCells) 
     {
-        errorMessage("mesh не указаны x-axis");
+        errorMessage("mesh не указаны Mu-axis");
         return false; 
     }
 
