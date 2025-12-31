@@ -56,7 +56,7 @@ int main(int argc, char**argv)
         return c;
 
     std::ifstream fin("../test.in");
-    std::ofstream fout("../test.txt");
+    std::ofstream fout("test.txt");
 
     if (fin.is_open() && fout.is_open())
     {
