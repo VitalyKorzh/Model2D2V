@@ -9,7 +9,7 @@ using namespace linear_math;
 std::map <double, std::string>::const_iterator InputReader::findTime_ptr(std::string t_ptr) const
 {
     auto it = std::find_if(time.begin(), time.end(), 
-        [&t_ptr](const auto& pair) { return pair.second == t_ptr; });
+        [&t_ptr](const std::pair<double, std::string>& pair) { return pair.second == t_ptr; });
     return it;
 }
 
