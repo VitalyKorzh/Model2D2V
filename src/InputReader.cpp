@@ -163,7 +163,7 @@ bool InputReader::readComponent(std::istream &in)
     {
         if (ir >= nr)
         {
-            errorMessage("не правильня точка по радиусу [ir < nr]");
+            errorMessage("не правильная точка по радиусу [ir < nr]");
             return false;
         }
 
@@ -227,7 +227,7 @@ bool InputReader::readParameterFromTime(std::istream &in, std::string line, std:
         }
         else
         {
-            errorMessage("не удалось прочитатать " + name);
+            errorMessage("не удалось прочитать " + name);
             return false;
         }
     }
@@ -258,7 +258,7 @@ bool InputReader::readParameterFromTime(std::istream &in, std::string line, std:
         {
             if (N == 0 || N > time.size())
             {
-                errorMessage("не указано правельное число точек по времени");
+                errorMessage("не указано правильное число точек по времени");
                 return false;
             }
 
@@ -340,7 +340,7 @@ bool InputReader::readParameterFromTime(std::istream &in, std::string line, std:
         }
         else
         {
-            errorMessage("не удалось прочитатать " + name);
+            errorMessage("не удалось прочитать " + name);
             return false;   
         }
     }
@@ -884,7 +884,7 @@ bool InputReader::readMesh(std::istream &in)
                     in >> val;
                     if (val <= 0)
                     {
-                        errorMessage("не правельное значение магнитного поля [Bvac > 0]");
+                        errorMessage("не правильное значение магнитного поля [Bvac > 0]");
                         return false;
                     }
                     Bvac[i] = val;
@@ -918,7 +918,7 @@ bool InputReader::readMesh(std::istream &in)
                     in >> val;
                     if (val < 0)
                     {
-                        errorMessage("не правельно значение границы [r>=0]");
+                        errorMessage("не правильное значение границы [r>=0]");
                         return false;
                     }
 
@@ -1176,7 +1176,7 @@ bool InputReader::readTime(std::string &line)
     return true;
 }
 
-bool InputReader::readKSpehere(std::istream &in)
+bool InputReader::readKSphere(std::istream &in)
 {
     std::string line;
 
@@ -1254,7 +1254,7 @@ bool InputReader::readKSpehere(std::istream &in)
         {
             if (I[i] < 0)
             {
-                errorMessage("интесивность I [>=0]");
+                errorMessage("интенсивность I [>=0]");
                 return false;
             }
         }
@@ -1268,8 +1268,8 @@ bool InputReader::readKSpehere(std::istream &in)
             I[i] *= PhysicValues::E_A_TO_P_TO_S/normaDensity;
         }
 
-        sources.push_back(new KSpehere(*ion, z, r, I, K));
-        I_sorces_list.push_back(I_list);
+        sources.push_back(new KSphere(*ion, z, r, I, K));
+        I_sources_list.push_back(I_list);
 
     }
     else
@@ -1285,7 +1285,7 @@ bool InputReader::readKSpehere(std::istream &in)
 
     if (in.fail()) 
     {
-        errorMessage("не удалось прочитать source K-spehere");
+        errorMessage("не удалось прочитать source K-sphere");
         return false;
     }
 
@@ -1379,7 +1379,7 @@ bool InputReader::readKTheta(std::istream &in, std::string name)
         {
             if (I[i] < 0)
             {
-                errorMessage("интесивность I [>=0]");
+                errorMessage("интенсивность I [>=0]");
                 return false;
             }
         }
@@ -1401,10 +1401,10 @@ bool InputReader::readKTheta(std::istream &in, std::string name)
             sources.push_back(new KThetaNegative(*ion, z, r, I, K, theta*M_PI/180.));
         else
         {
-            errorMessage("не верная наименование исочника");
+            errorMessage("не верная наименование источника");
             return false;
         }
-        I_sorces_list.push_back(I_list);
+        I_sources_list.push_back(I_list);
 
     }
     else
@@ -1505,7 +1505,7 @@ bool InputReader::readKMaxwell(std::istream &in)
         {
             if (I[i] < 0)
             {
-                errorMessage("интесивность I [>=0]");
+                errorMessage("интенсивность I [>=0]");
                 return false;
             }
         }
@@ -1520,7 +1520,7 @@ bool InputReader::readKMaxwell(std::istream &in)
         }
 
         sources.push_back(new KMaxwell(*ion, z, r, I, T, maxwellIntegratePoints));
-        I_sorces_list.push_back(I_list);
+        I_sources_list.push_back(I_list);
 
     }
     else
@@ -1552,7 +1552,7 @@ bool InputReader::readSource(std::istream &in)
 
     if (line.find("K-sphere") != std::string::npos)
     {
-        if (!readKSpehere(in))
+        if (!readKSphere(in))
             return false;
     }
     else if (line.find("K-theta-positive") != std::string::npos)
@@ -1659,7 +1659,7 @@ bool InputReader::readFStep(std::istream &in)
 
     if (threads < 1)
     {
-        errorMessage("не правельное число потоков threads[>=1]");
+        errorMessage("не правильное число потоков threads[>=1]");
         return false;
     }
 
@@ -1667,7 +1667,7 @@ bool InputReader::readFStep(std::istream &in)
     {
         if (f_step_epsilon[it] <= 0.)
         {
-            errorMessage("не правельное epsilon[>0]");
+            errorMessage("не правильное epsilon[>0]");
             return false;
         }
     }
@@ -1700,8 +1700,8 @@ bool InputReader::readILUK(std::istream &in)
 
     parameters.type = linear_math::PreconditionerType::ILU_K;
     parameters.k_max = k_max;
-    parameters.shift_dioganal = shift;
-    parameters.coeff_dioganal = coeff;
+    parameters.shift_diagonal = shift;
+    parameters.coeff_diagonal = coeff;
 
     return true;
 }
@@ -1743,8 +1743,8 @@ bool InputReader::readILUT(std::istream &in)
     parameters.fastType = fast;
     parameters.isAbsoluteThreshold = absolute;
     parameters.fastTypeQueue = pre_sorted;
-    parameters.shift_dioganal = shift;
-    parameters.coeff_dioganal = coeff;
+    parameters.shift_diagonal = shift;
+    parameters.coeff_diagonal = coeff;
 
     return true;
 }
@@ -1766,8 +1766,8 @@ InputReader::InputReader(std::istream &in)
         threads = 1;
         limit_lin_iterations=200;
         zero_epsilon = 0.;
-        parameters.coeff_dioganal = 1.;
-        parameters.shift_dioganal = 0.;
+        parameters.coeff_diagonal = 1.;
+        parameters.shift_diagonal = 0.;
         parameters.type = PreconditionerType::NONE;
     }
 

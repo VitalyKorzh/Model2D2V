@@ -15,11 +15,11 @@ public:
     MatrixCSRtimer(const darray &values, const std::vector <uint> &col_indicies, const std::vector <uint> &row_ptr, uint h, uint w) : MatrixCSR(values, col_indicies, row_ptr, h, w) {};
     Vector operator*(const Vector &v) const override 
     {
-        TimeProfiler t_mult("multyple matrix to vector");
+        TimeProfiler t_mult("multiple matrix to vector");
         return MatrixCSR::operator*(v);
     }
     Vector transposeMult(const Vector &v) const override {
-        TimeProfiler t_mult("multyple matrix to vector traspose");
+        TimeProfiler t_mult("multiple matrix to vector transpose");
         return MatrixCSR::transposeMult(v);
     }
 };
@@ -127,7 +127,7 @@ void Solver::printParameterFromTime(const std::list<std::pair<std::string, doubl
 
 void Solver::printSource() const
 {
-    auto is = reader.I_sorces_list.begin();
+    auto is = reader.I_sources_list.begin();
 
     for (auto source : reader.sources)
     {
@@ -455,8 +455,8 @@ void Solver::printStartInfo() const
         os << "# \tILUT\n";
         os << "# \t\tp " << reader.parameters.p_max << "\n";
         os << "# \t\ttol " << reader.parameters.threshold << "\n";
-        os << "# \t\tcoeff " << reader.parameters.coeff_dioganal << "\n";
-        os << "# \t\tshift " << reader.parameters.shift_dioganal << "\n";
+        os << "# \t\tcoeff " << reader.parameters.coeff_diagonal << "\n";
+        os << "# \t\tshift " << reader.parameters.shift_diagonal << "\n";
         if (reader.parameters.fastType)
             os << "# \t\t[fast]\n";
         if (reader.parameters.isAbsoluteThreshold)
@@ -469,8 +469,8 @@ void Solver::printStartInfo() const
     {
         os << "# \tILUK\n";
         os << "# \t\tp " << reader.parameters.p_max << "\n";
-        os << "# \t\tcoeff " << reader.parameters.coeff_dioganal << "\n";
-        os << "# \t\tshift " << reader.parameters.shift_dioganal << "\n";
+        os << "# \t\tcoeff " << reader.parameters.coeff_diagonal << "\n";
+        os << "# \t\tshift " << reader.parameters.shift_diagonal << "\n";
         os << "# \tILUK end\n";
     }
 
@@ -509,14 +509,14 @@ void Solver::count()
         double tau = t1 - t0;
         t0 = t1;
 
-        //подсчет объем и концетрации
+        //подсчет объем и концентрации
         {
             countVolume3R();
             countVolume3V();
             countNa();
         }
 
-        //подсчет функции распределние на новом временном слое
+        //подсчет функции распределение на новом временном слое
         {
             auto ion = ions.begin();
             auto ifp = f_plus.begin();
@@ -534,7 +534,7 @@ void Solver::count()
             }
         }
 
-        //вывод иноформации
+        //вывод информации
         {
             TimeProfiler t_print("time print");
             print(it, t1, tau, iterations);

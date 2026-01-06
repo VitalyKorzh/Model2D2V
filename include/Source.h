@@ -38,12 +38,12 @@ public:
     virtual ~Source() {}
 };
 
-class KSpehere : public Source {
+class KSphere : public Source {
 private:
     double K;
 public:
 
-    KSpehere(const Ion &ion, double z, double r, const darray &I, double K) : Source(ion, z, r, I), K(K) {
+    KSphere(const Ion &ion, double z, double r, const darray &I, double K) : Source(ion, z, r, I), K(K) {
         type = 0;
     }
 

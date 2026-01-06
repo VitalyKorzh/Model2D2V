@@ -60,7 +60,7 @@ private:
     darray f_step_epsilon;
     linear_math::ILUParameters parameters;
 
-    std::list <std::list<std::pair<std::string, double>>> I_sorces_list;
+    std::list <std::list<std::pair<std::string, double>>> I_sources_list;
     std::list<Source*> sources;
     std::list<linear_math::Vector> f_plus0;
     std::list<linear_math::Vector> f_minus0;
@@ -130,7 +130,7 @@ private:
     bool readILUK(std::istream &in);
     bool readFStep(std::istream &in);
 
-    bool readKSpehere(std::istream &in);
+    bool readKSphere(std::istream &in);
     bool readKTheta(std::istream &in, std::string name="");
     bool readKMaxwell(std::istream &in);
     bool readSource(std::istream &in);

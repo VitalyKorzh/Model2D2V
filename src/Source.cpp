@@ -1,7 +1,7 @@
 #include "Source.h"
 #include <cmath>
 
-double KSpehere::getIPlus(uint it, uint ionType, double z0, double z1, double r0, double r1, double VR3, double K0, double K1, double mub0, double mub1, double Vv3, double Vv3InBand)
+double KSphere::getIPlus(uint it, uint ionType, double z0, double z1, double r0, double r1, double VR3, double K0, double K1, double mub0, double mub1, double Vv3, double Vv3InBand)
 {
     double K_grid = K / ion.Z;
     if (ion.ionType == ionType && z >= z0 && z < z1 && r >= r0 && r < r1 && K_grid >= K0 && K_grid < K1)
@@ -19,8 +19,8 @@ Source::Source(const Ion &ion, double z, double r, const darray &I) : ion(ion), 
 double KTheta::getIPlus(uint it, uint ionType, double z0, double z1, double r0, double r1, double VR3, double K0, double K1, double mub0, double mub1, double Vv3, double Vv3InBand)
 {
     double K_grid = K / ion.Z;
-    double mugrid = K_grid * sin2Theta;
-    if (ion.ionType == ionType && z >= z0 && z < z1 && r >= r0 && r < r1 && K_grid >= K0 && K_grid < K1 && mugrid >= mub0 && mugrid < mub1)
+    double mu_grid = K_grid * sin2Theta;
+    if (ion.ionType == ionType && z >= z0 && z < z1 && r >= r0 && r < r1 && K_grid >= K0 && K_grid < K1 && mu_grid >= mub0 && mu_grid < mub1)
     {
         return (I[it]+I[it-1])/(2.*VR3*Vv3*coeffVolume*2.);
     }
