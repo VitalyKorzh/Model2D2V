@@ -1,6 +1,7 @@
 #include "Solver.h"
 #include "PhysicValues.h"
 #include "TimeProfiler.h"
+#include "Potential.h"
 
 #include <cmath>
 #include <algorithm>
